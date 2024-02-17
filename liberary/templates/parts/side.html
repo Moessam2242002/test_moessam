@@ -1,0 +1,91 @@
+<!-- في المكان ده هحط سلايد بار -->
+<!-- Main Sidebar Container -->
+<aside style="position: fixed;" class="main-sidebar sidebar-dark-primary elevation-4">
+    <!-- Brand Logo -->
+    <a href="{% url "index" %}" class="brand-link">
+        <span class="brand-text font-weight-light">NOUVIL</span>
+    </a>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <!-- Sidebar user panel (optional) -->
+        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+            <div class="image">
+            </div>
+            <div class="info">
+                <a href="{% url "index" %}" class="d-block">Mostafa Essam</a>
+            </div>
+        </div>
+        <!-- Sidebar Menu -->
+        <nav class="mt-2">
+            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                <li class="nav-item">
+                    <a href="#bookform" class="nav-link">
+                        <i class="nav-icon fas fa-th"></i>
+                        <p>
+                            New Books
+                        </p>
+                    </a>
+                </li>
+                
+                <li class="nav-item has-treeview">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fas fa-copy"></i>
+                        <p>
+                            Category
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a id="addcat" href="#" class="nav-link">
+                                <i class="fa fa-plus "></i>
+                                <p class="text-light"> Add New </p>
+                            </a>
+                        </li>
+                        <form id="cat" method="POST">
+                            <div id='catinput'>
+                                {% csrf_token %}
+                                {{formcat}}
+                                <br>
+                                <button type="submit" class="btn btn-success">save</button>
+                                <button id="backcat" class="btn btn-primary ">back</button>
+                            </div>
+                        </form>
+                            {% for i in category %}
+                                <li style="cursor: pointer;" class="nav-item cat{{i.id}}">
+                                    <a id="" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>{{i.name}}</p>
+                                    </a>
+                                </li>
+                            {% endfor %}
+                </li>
+                <li class="nav-header">الكتب المستعارة</li>
+                {% for book in status %}
+                        <li style="cursor: pointer;" id="links" class="nav-item b{{ book }}">
+                        <a id="statusSold" class="nav-link ">
+                            <i class="nav-icon far fa-circle text-danger"></i>
+                            <p class="text">{{ book }}</p>
+                        </a>
+                    {% endfor %}
+                </li>
+                
+                </li>
+            </ul>
+        </nav>
+        <!-- /.sidebar-menu -->
+    </div>
+    <!-- /.sidebar -->
+</aside>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var newBooksLink = document.querySelector('a[href="#bookform"]');
+        var addBookButton = document.querySelector('.btn.btn-primary[data-toggle="collapse"]');
+    
+        newBooksLink.addEventListener("click", function(event) {
+            event.preventDefault(); // Prevent the default action of the link
+            addBookButton.click(); // Trigger click event on the "Add Book" button
+        });
+    });
+    </script>
+    
